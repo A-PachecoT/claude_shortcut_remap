@@ -1,5 +1,3 @@
-import { CLAUDE_COLORS, CLAUDE_STYLES, createShortcutsModal } from './ui-components.js';
-
 const DEFAULT_SHORTCUTS = {
   'submit': { key: 'Enter', ctrlKey: true, altKey: false, shiftKey: false },
   'newLine': { key: 'Enter', ctrlKey: false, altKey: false, shiftKey: true },

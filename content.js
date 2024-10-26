@@ -1,5 +1,3 @@
-import { createShortcutsModal, createFloatingButton } from './ui-components.js';
-
 // Debugging function to log element details
 function debugElement(element, label = '') {
     console.log(`${label} Element:`, {

@@ -7,8 +7,7 @@
   "content_scripts": [
     {
       "matches": ["https://claude.ai/*"],
-      "js": ["ui-components.js", "content.js"],
-      "type": "module"
+      "js": ["ui-components.js", "content.js"]
     }
   ],
   "options_ui": {

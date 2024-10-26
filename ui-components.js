@@ -136,9 +136,29 @@ function createFloatingButton() {
   return button;
 }
 
-export { 
-  CLAUDE_COLORS, 
-  CLAUDE_STYLES, 
-  createShortcutsModal, 
-  createFloatingButton 
+// Make these globally available
+window.CLAUDE_COLORS = {
+  background: '#eeece2',
+  backgroundHover: '#e6e3d6',
+  text: '#3d3929',
+  accent: '#da7756',
+  accentHover: '#bd5d3a',
+  border: '#3d3929'
+};
+
+window.CLAUDE_STYLES = {
+  fontPrimary: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
+  fontMono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+  borderRadius: '8px',
+  modalBorderRadius: '12px',
+  transition: 'all 0.2s ease'
+};
+
+// Make functions globally available
+window.createShortcutsModal = function(shortcuts, isPopup = false) {
+  // ... rest of the function stays the same ...
+};
+
+window.createFloatingButton = function() {
+  // ... rest of the function stays the same ...
 };
