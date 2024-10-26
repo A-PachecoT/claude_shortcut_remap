@@ -170,29 +170,25 @@ document.addEventListener('keydown', (event) => {
 
         case 'focusInput':
           const mainInput = document.querySelector('textarea:not(.g-recaptcha-response)');
+          const proseMirrorInput = document.querySelector('.ProseMirror[contenteditable="true"]');
+          
+          debugElement(proseMirrorInput, 'Found ProseMirror Input');
           debugElement(mainInput, 'Found Main Input');
           
-          if (mainInput) {
+          if (proseMirrorInput) {
+            proseMirrorInput.focus();
+            // Place cursor at the end for ProseMirror
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(proseMirrorInput);
+            range.collapse(false); // collapse to end
+            selection.removeAllRanges();
+            selection.addRange(range);
+          } else if (mainInput) {
             mainInput.focus();
-            // Place cursor at the end
             mainInput.selectionStart = mainInput.selectionEnd = mainInput.value.length;
           } else {
-            console.warn('Main input not found. Trying alternative selectors...');
-            // Fallback selectors
-            const alternativeInputs = [
-              document.querySelector('[contenteditable="true"]'),
-              document.querySelector('[role="textbox"]'),
-              document.querySelector('textarea[placeholder]'),
-              // Add more specific selectors if needed
-            ];
-            
-            const input = alternativeInputs.find(el => el !== null);
-            if (input) {
-              debugElement(input, 'Found Alternative Input');
-              input.focus();
-            } else {
-              console.warn('No input element found');
-            }
+            console.warn('No input elements found');
           }
           break;
 
