@@ -27,6 +27,21 @@ window.CLAUDE_STYLES = {
   transition: 'all 0.2s ease'
 };
 
+// Add ACTIONS at the top
+window.ACTIONS = {
+  'submit': 'Submit Message',
+  'newLine': 'New Line',
+  'stop': 'Stop Generation',
+  'newChat': 'New Chat',
+  'focusInput': 'Focus Input',
+  'copyLastCode': 'Copy Last Code',
+  'copyLastResponse': 'Copy Last Response',
+  'showShortcuts': 'Show Shortcuts',
+  'clearChat': 'Clear Chat',
+  'uploadFile': 'Upload File',
+  'toggleSidebar': 'Toggle Sidebar'
+};
+
 // Shared modal creation
 window.createShortcutsModal = function(shortcuts, isPopup = false) {
   const modal = document.createElement('div');
@@ -56,9 +71,15 @@ window.createShortcutsModal = function(shortcuts, isPopup = false) {
   const shortcutsList = `
     <div style="
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 12px 24px;
       margin-top: 16px;
+      max-height: calc(100vh - 200px);
+      overflow-y: auto;
+      @media (max-width: 640px) {
+        grid-template-columns: 1fr;
+        max-height: 70vh;
+      }
     ">
       ${Object.entries(shortcuts).map(([action, shortcut]) => {
         const keys = [];
@@ -69,19 +90,27 @@ window.createShortcutsModal = function(shortcuts, isPopup = false) {
         
         return `
           <div style="
-            font-size: 14px;
-            color: ${CLAUDE_COLORS.darkText};
-          ">${action}</div>
-          <div style="
-            font-family: ${CLAUDE_STYLES.fontMono};
-            font-size: 13px;
-            color: ${CLAUDE_COLORS.accent};
-            padding: 4px 8px;
-            background: ${CLAUDE_COLORS.darkAccentBg};
-            border-radius: 4px;
-            text-align: right;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
           ">
-            ${keys.join(' + ')}
+            <div style="
+              font-size: 14px;
+              color: ${CLAUDE_COLORS.darkText};
+            ">${ACTIONS[action]}</div>
+            <div style="
+              font-family: ${CLAUDE_STYLES.fontMono};
+              font-size: 12px;
+              color: ${CLAUDE_COLORS.accent};
+              padding: 4px 8px;
+              background: ${CLAUDE_COLORS.darkAccentBg};
+              border-radius: 4px;
+              text-align: right;
+              margin-left: 12px;
+            ">
+              ${keys.join(' + ')}
+            </div>
           </div>
         `;
       }).join('')}
