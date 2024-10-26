@@ -169,26 +169,23 @@ document.addEventListener('keydown', (event) => {
           break;
 
         case 'focusInput':
-          const mainInput = document.querySelector('textarea:not(.g-recaptcha-response)');
-          const proseMirrorInput = document.querySelector('.ProseMirror[contenteditable="true"]');
-          
+          const proseMirrorInput = document.querySelector('div.ProseMirror[contenteditable="true"]');
           debugElement(proseMirrorInput, 'Found ProseMirror Input');
-          debugElement(mainInput, 'Found Main Input');
           
           if (proseMirrorInput) {
             proseMirrorInput.focus();
-            // Place cursor at the end for ProseMirror
-            const selection = window.getSelection();
-            const range = document.createRange();
-            range.selectNodeContents(proseMirrorInput);
-            range.collapse(false); // collapse to end
-            selection.removeAllRanges();
-            selection.addRange(range);
-          } else if (mainInput) {
-            mainInput.focus();
-            mainInput.selectionStart = mainInput.selectionEnd = mainInput.value.length;
+            // Place cursor at the end
+            const lastParagraph = proseMirrorInput.querySelector('p:last-child');
+            if (lastParagraph) {
+              const selection = window.getSelection();
+              const range = document.createRange();
+              range.selectNodeContents(lastParagraph);
+              range.collapse(false); // collapse to end
+              selection.removeAllRanges();
+              selection.addRange(range);
+            }
           } else {
-            console.warn('No input elements found');
+            console.warn('No ProseMirror input found');
           }
           break;
 
