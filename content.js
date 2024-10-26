@@ -93,8 +93,19 @@ document.addEventListener('keydown', (event) => {
           break;
 
         case 'newChat':
-          const newChatButton = document.querySelector('a[href="/"]');
-          if (newChatButton) newChatButton.click();
+          // Try multiple selectors for better reliability
+          const newChatButton = document.querySelector(
+            'button[aria-label="New chat"], ' + // First try aria-label
+            'a[href="/"], ' +                   // Then try href
+            '.inline-flex.items-center.justify-center.relative.shrink-0' // Finally try class combination
+          );
+          
+          if (newChatButton) {
+            debugElement(newChatButton, 'Found New Chat Button');
+            newChatButton.click();
+          } else {
+            console.warn('New chat button not found');
+          }
           break;
 
         case 'focusInput':
