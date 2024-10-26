@@ -1,3 +1,5 @@
+import { CLAUDE_COLORS, CLAUDE_STYLES, createShortcutsModal } from './ui-components.js';
+
 const DEFAULT_SHORTCUTS = {
   'submit': { key: 'Enter', ctrlKey: true, altKey: false, shiftKey: false },
   'newLine': { key: 'Enter', ctrlKey: false, altKey: false, shiftKey: true },
@@ -21,32 +23,50 @@ const ACTIONS = {
   'copyLastResponse': 'Copy Last Response',
   'showShortcuts': 'Show Shortcuts',
   'clearChat': 'Clear Chat',
-  'uploadFile': 'Upload File'
+  'uploadFile': 'Upload File',
+  'toggleSidebar': 'Toggle Sidebar'
 };
 
 function createShortcutRow(action, shortcut) {
   const div = document.createElement('div');
   div.className = 'shortcut-row';
+  div.style.cssText = `
+    padding: 12px;
+    border-radius: ${CLAUDE_STYLES.borderRadius};
+    background: ${CLAUDE_COLORS.background};
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-family: ${CLAUDE_STYLES.fontPrimary};
+  `;
   
   div.innerHTML = `
-    <label>${ACTIONS[action]}:</label>
+    <label style="color: ${CLAUDE_COLORS.text}; flex: 1;">${ACTIONS[action]}:</label>
     <input type="text" class="key-input" data-action="${action}" 
-           value="${shortcut.key}" placeholder="Press a key">
-    <span class="checkbox-group">
-      <label>
+           value="${shortcut.key}" placeholder="Press a key"
+           style="
+             padding: 4px 8px;
+             border-radius: 4px;
+             border: 1.5px solid ${CLAUDE_COLORS.border};
+             font-family: ${CLAUDE_STYLES.fontMono};
+             width: 80px;
+           ">
+    <span class="checkbox-group" style="display: flex; gap: 8px;">
+      <label style="display: flex; align-items: center; gap: 4px;">
         <input type="checkbox" class="ctrl-check" 
                ${shortcut.ctrlKey ? 'checked' : ''}>
-        Ctrl
+        <span style="color: ${CLAUDE_COLORS.text};">Ctrl</span>
       </label>
-      <label>
+      <label style="display: flex; align-items: center; gap: 4px;">
         <input type="checkbox" class="alt-check" 
                ${shortcut.altKey ? 'checked' : ''}>
-        Alt
+        <span style="color: ${CLAUDE_COLORS.text};">Alt</span>
       </label>
-      <label>
+      <label style="display: flex; align-items: center; gap: 4px;">
         <input type="checkbox" class="shift-check" 
                ${shortcut.shiftKey ? 'checked' : ''}>
-        Shift
+        <span style="color: ${CLAUDE_COLORS.text};">Shift</span>
       </label>
     </span>
   `;
@@ -103,4 +123,29 @@ document.addEventListener('click', (e) => {
       input.value = e.key;
     }, { once: true });
   }
+});
+
+// Style the buttons
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach(button => {
+    button.style.cssText = `
+      padding: 8px 16px;
+      background: ${CLAUDE_COLORS.accent};
+      color: white;
+      border: none;
+      border-radius: ${CLAUDE_STYLES.borderRadius};
+      cursor: pointer;
+      font-family: ${CLAUDE_STYLES.fontPrimary};
+      transition: ${CLAUDE_STYLES.transition};
+    `;
+    
+    button.onmouseover = () => {
+      button.style.background = CLAUDE_COLORS.accentHover;
+    };
+    
+    button.onmouseout = () => {
+      button.style.background = CLAUDE_COLORS.accent;
+    };
+  });
 });
