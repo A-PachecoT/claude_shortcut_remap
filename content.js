@@ -51,7 +51,10 @@ const observeResponses = () => {
   observer.observe(document.body, { childList: true, subtree: true });
 };
 
-document.addEventListener('DOMContentLoaded', observeResponses);
+document.addEventListener('DOMContentLoaded', () => {
+  observeResponses();
+  createShortcutsButton();
+});
 
 document.addEventListener('keydown', (event) => {
   const textarea = document.querySelector('textarea');
@@ -272,7 +275,6 @@ document.addEventListener('keydown', (event) => {
 });
 
 function showShortcutsModal() {
-  // Remove existing modal if it exists
   const existingModal = document.querySelector('#shortcuts-modal');
   if (existingModal) {
     existingModal.remove();
@@ -280,23 +282,24 @@ function showShortcutsModal() {
   }
 
   const modal = document.createElement('div');
-  modal.id = 'shortcuts-modal';  // Add ID for easy reference
+  modal.id = 'shortcuts-modal';
   modal.style.cssText = `
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: #eeece2;
-    padding: 30px;
+    padding: 24px;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border: 1.5px solid #3d3929;
     z-index: 1000;
     max-height: 80vh;
     overflow-y: auto;
     font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
     color: #3d3929;
-    min-width: 300px;
-    max-width: 500px;
+    min-width: 320px;
+    max-width: 480px;
+    box-shadow: 0 4px 24px rgba(61, 57, 41, 0.1);
   `;
 
   const shortcuts = Object.entries(currentShortcuts).map(([action, shortcut]) => {
@@ -305,28 +308,83 @@ function showShortcutsModal() {
     if (shortcut.altKey) keys.push('Alt');
     if (shortcut.shiftKey) keys.push('Shift');
     keys.push(shortcut.key);
-    return `<div style="margin: 12px 0; display: flex; justify-content: space-between; align-items: center">
-      <span style="font-weight: 500">${action}</span>
-      <span style="color: #da7756; background: rgba(218, 119, 86, 0.1); 
-                   padding: 4px 8px; border-radius: 4px; font-size: 0.9em">
+    return `<div style="margin: 8px 0; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+      <span style="font-size: 14px; color: #3d3929;">${action}</span>
+      <span style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; 
+                   font-size: 13px; color: #bd5d3a; 
+                   padding: 4px 8px; background: rgba(189, 93, 58, 0.1); 
+                   border-radius: 4px;">
         ${keys.join(' + ')}
       </span>
     </div>`;
   }).join('');
 
   modal.innerHTML = `
-    <h2 style="margin-top: 0; margin-bottom: 20px; font-weight: normal">Keyboard Shortcuts</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+      <h2 style="margin: 0; font-size: 18px; font-weight: 500; color: #3d3929;">Keyboard Shortcuts</h2>
+      <button id="close-shortcuts-modal" style="
+        background: none;
+        border: none;
+        padding: 4px;
+        cursor: pointer;
+        color: #3d3929;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      ">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
     ${shortcuts}
-    <button id="close-shortcuts-modal" 
-            style="margin-top: 20px; padding: 8px 16px; background: #da7756; 
-                   color: white; border: none; border-radius: 6px; cursor: pointer;
-                   font-family: inherit; font-size: 0.9em">Close</button>
   `;
 
   document.body.appendChild(modal);
 
-  // Add event listener to close button
   document.getElementById('close-shortcuts-modal').addEventListener('click', () => {
     modal.remove();
   });
+}
+
+function createShortcutsButton() {
+  const button = document.createElement('button');
+  button.id = 'shortcuts-floating-button';
+  button.innerHTML = `
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 5H4V19H20V5Z" stroke="#3d3929" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M8 9H8.01M12 9H12.01M16 9H16.01M8 13H8.01M12 13H12.01M16 13H16.01M8 17H16" 
+            stroke="#3d3929" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  `;
+  button.title = 'Keyboard Shortcuts';
+  
+  button.style.cssText = `
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: #eeece2;
+    border: 1.5px solid #3d3929;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    padding: 6px;
+  `;
+
+  button.onmouseover = () => {
+    button.style.background = '#e6e3d6';
+  };
+  
+  button.onmouseout = () => {
+    button.style.background = '#eeece2';
+  };
+
+  button.addEventListener('click', showShortcutsModal);
+  document.body.appendChild(button);
 }
