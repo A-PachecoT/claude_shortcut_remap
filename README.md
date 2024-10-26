@@ -1,6 +1,6 @@
 <div align="center">
   <img src="icons/icon128.png" alt="Claude Shortcuts Icon" width="80" height="80">
-  <h1>Claude IDE Shortcuts</h1>
+  <h1>Claude UI Shortcuts</h1>
   <p>
     <b>Enhance your Claude AI experience with keyboard shortcuts</b>
   </p>
