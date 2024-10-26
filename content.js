@@ -173,8 +173,21 @@ document.addEventListener('keydown', (event) => {
           debugElement(proseMirrorInput, 'Found ProseMirror Input');
           
           if (proseMirrorInput) {
+            // First try direct focus
             proseMirrorInput.focus();
-            // Place cursor at the end
+            
+            // If that doesn't work, simulate Tab key
+            const tabEvent = new KeyboardEvent('keydown', {
+              key: 'Tab',
+              code: 'Tab',
+              keyCode: 9,
+              which: 9,
+              bubbles: true,
+              cancelable: true
+            });
+            document.dispatchEvent(tabEvent);
+            
+            // After focusing, try to place cursor at the end
             const lastParagraph = proseMirrorInput.querySelector('p:last-child');
             if (lastParagraph) {
               const selection = window.getSelection();
