@@ -4,13 +4,12 @@ const DEFAULT_SHORTCUTS = {
   'newLine': { key: 'Enter', ctrlKey: false, altKey: false, shiftKey: true },
   'stop': { key: 'Escape', ctrlKey: false, altKey: false, shiftKey: false },
   'newChat': { key: 'O', ctrlKey: true, altKey: false, shiftKey: true },
-  'customInstructions': { key: 'I', ctrlKey: true, altKey: false, shiftKey: true },
   'focusInput': { key: 'Escape', ctrlKey: false, altKey: false, shiftKey: true },
-  'toggleSidebar': { key: 'S', ctrlKey: true, altKey: false, shiftKey: true },
   'copyLastCode': { key: ';', ctrlKey: true, altKey: false, shiftKey: true },
-  'deleteChat': { key: 'X', ctrlKey: true, altKey: false, shiftKey: true },
   'copyLastResponse': { key: 'C', ctrlKey: true, altKey: false, shiftKey: true },
-  'showShortcuts': { key: '/', ctrlKey: true, altKey: false, shiftKey: false }
+  'showShortcuts': { key: '/', ctrlKey: true, altKey: false, shiftKey: false },
+  'clearChat': { key: 'L', ctrlKey: true, altKey: false, shiftKey: true },
+  'uploadFile': { key: 'U', ctrlKey: true, altKey: false, shiftKey: true }
 };
 
 let currentShortcuts = {...DEFAULT_SHORTCUTS};
@@ -70,7 +69,7 @@ document.addEventListener('keydown', (event) => {
           break;
 
         case 'newChat':
-          const newChatButton = document.querySelector('button[aria-label="New chat"]');
+          const newChatButton = document.querySelector('a[href="/"]');
           if (newChatButton) newChatButton.click();
           break;
 
@@ -92,6 +91,16 @@ document.addEventListener('keydown', (event) => {
 
         case 'showShortcuts':
           showShortcutsModal();
+          break;
+
+        case 'clearChat':
+          const clearButton = document.querySelector('button[aria-label="Clear chat"]');
+          if (clearButton) clearButton.click();
+          break;
+
+        case 'uploadFile':
+          const uploadButton = document.querySelector('button[aria-label="Upload file"]');
+          if (uploadButton) uploadButton.click();
           break;
       }
       
