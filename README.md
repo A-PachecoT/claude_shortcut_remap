@@ -109,13 +109,25 @@ If you encounter any issues or have suggestions:
 
 ## Planned Features
 
-### Sidebar Toggle Enhancement
+### Future Enhancements
 - Implement toggle for Claude's sidebar pin functionality
-- Match the native "pin sidebar" button behavior
-- Maintain state across page refreshes
-- Planned shortcut: Ctrl + Shift + S (configurable)
+- Add visual feedback for shortcut actions
+- Improve mobile responsiveness
+- Add customizable shortcut combinations
 
-If you'd like to contribute to implementing these features, please check the issues section or submit a PR!
+## Known Issues
+
+### Sidebar Toggle Limitations
+- Mobile view: Opening sidebar via shortcut not working consistently
+- Desktop view: Working as expected
+- Current shortcut: Ctrl + Shift + S (configurable)
+
+We're working on improving the sidebar toggle functionality. Current challenges:
+- Different DOM structure between mobile and desktop views
+- Dynamic button states
+- Viewport-specific behaviors
+
+If you'd like to contribute to fixing these issues, please check the issues section or submit a PR!
 
 ---
 
