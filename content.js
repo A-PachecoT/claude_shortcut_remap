@@ -110,9 +110,12 @@ document.addEventListener('keydown', (event) => {
         case 'toggleSidebar':
           // Try to find both mobile and desktop close buttons
           const closeButtons = document.querySelectorAll('button svg[viewBox="0 0 256 256"]');
-          const sidebarOpenButton = document.querySelector(
-            'button.inline-flex.items-center.justify-center.relative.shrink-0[class*="rounded-md"]'
-          );
+          const sidebarOpenButtons = [
+            // Desktop open button
+            document.querySelector('button.inline-flex.items-center.justify-center.relative.shrink-0[class*="rounded-md"]'),
+            // Mobile open button (hamburger menu)
+            document.querySelector('button svg[viewBox="0 0 32 32"]')?.closest('button')
+          ].filter(Boolean); // Remove null values
           
           // Find a visible close button
           const visibleCloseButton = Array.from(closeButtons)
@@ -122,12 +125,15 @@ document.addEventListener('keydown', (event) => {
             // If any close button is visible, click it
             debugElement(visibleCloseButton, 'Found Sidebar Close Button');
             visibleCloseButton.closest('button').click();
-          } else if (sidebarOpenButton) {
-            // If no close button is visible, try to open sidebar
-            debugElement(sidebarOpenButton, 'Found Sidebar Open Button');
-            sidebarOpenButton.click();
           } else {
-            console.warn('Sidebar toggle buttons not found');
+            // Try to find a visible open button
+            const visibleOpenButton = sidebarOpenButtons.find(btn => btn.offsetParent !== null);
+            if (visibleOpenButton) {
+              debugElement(visibleOpenButton, 'Found Sidebar Open Button');
+              visibleOpenButton.click();
+            } else {
+              console.warn('No sidebar buttons found');
+            }
           }
           break;
 
