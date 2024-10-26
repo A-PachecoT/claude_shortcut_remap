@@ -4,12 +4,20 @@ A Chrome extension that adds customizable keyboard shortcuts to Claude AI's inte
 
 ## Features
 
+### Core Features
 - 🎯 Matches ChatGPT's default keyboard shortcuts
 - ⌨️ Fully customizable shortcuts
 - 🎨 Clean, minimalist interface matching Claude's design
 - 💾 Automatic shortcut sync across devices
 - 📋 Quick copy functionality for code and responses
 - 🔍 Easy-to-access shortcuts viewer (Ctrl + /)
+
+### Enhanced Functionality
+- **Robust Submit Command**: Works across all viewport sizes (including mobile view)
+- **Multiple Submit Methods**: Uses both button click and native event dispatch for maximum reliability
+- **Smart Response Tracking**: Automatically tracks the latest response and code blocks
+- **Adaptive UI**: Modal interface that matches Claude's aesthetic
+- **State Persistence**: Maintains shortcut configurations across sessions
 
 ## Default Shortcuts
 
