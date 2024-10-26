@@ -10,9 +10,10 @@ A Chrome extension that adds customizable keyboard shortcuts to Claude AI's inte
 - 🎨 Clean, minimalist interface matching Claude's design
 - 💾 Automatic shortcut sync across devices
 - 📋 Quick copy functionality for code and responses
-- 🔍 Easy-to-access shortcuts viewer (Ctrl + /)
+- 🔍 Easy-to-access shortcuts viewer (Ctrl + / or floating button)
 
 ### Enhanced Functionality
+- **Multiple Access Points**: Access shortcuts via keyboard (Ctrl + /), extension icon, or floating button
 - **Robust Submit Command**: Works across all viewport sizes (including mobile view)
 - **Multiple Submit Methods**: Uses both button click and native event dispatch for maximum reliability
 - **Smart Response Tracking**: Automatically tracks the latest response and code blocks
@@ -27,13 +28,13 @@ A Chrome extension that adds customizable keyboard shortcuts to Claude AI's inte
 | New Line | Shift + Enter |
 | Stop Generation | Escape |
 | New Chat | Ctrl + Shift + O |
-| Custom Instructions | Ctrl + Shift + I |
 | Focus Input | Shift + Escape |
 | Toggle Sidebar | Ctrl + Shift + S |
 | Copy Last Code | Ctrl + Shift + ; |
-| Delete Chat | Ctrl + Shift + X |
 | Copy Last Response | Ctrl + Shift + C |
 | Show Shortcuts | Ctrl + / |
+| Clear Chat | Ctrl + Shift + L |
+| Upload File | Ctrl + Shift + U |
 
 ## Installation
 
@@ -42,23 +43,24 @@ A Chrome extension that adds customizable keyboard shortcuts to Claude AI's inte
 3. Enable "Developer mode" in the top right
 4. Click "Load unpacked" and select the extension directory
 
-## Customization
-
-1. Click on the extension icon in Chrome
-2. Select "Options" from the dropdown
-3. Modify shortcuts to your preference
-4. Click "Save Changes" to apply
 
 ## Files Structure
 
 ```
-claude-shortcut_remap/
-├── manifest.json # Extension configuration
-├── content.js # Main shortcut functionality
-├── options.html # Settings page layout
-└── options.js # Settings page functionality
+claude-shortcuts/
+├── manifest.json        # Extension configuration
+├── content.js          # Main shortcut functionality
+├── background.js       # Extension button handler
+├── ui-components.js    # Shared UI components
+├── options.html        # Settings page layout
+├── options.js         # Settings page functionality
+├── generate_icon.py   # Icon generation script
+└── icons/            # Extension icons
+    ├── icon16.png
+    ├── icon32.png
+    ├── icon48.png
+    └── icon128.png
 ```
-
 
 ## Brand Colors
 
