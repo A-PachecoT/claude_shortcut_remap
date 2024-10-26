@@ -173,41 +173,41 @@ document.addEventListener('keydown', (event) => {
           debugElement(proseMirrorInput, 'Found ProseMirror Input');
           
           if (proseMirrorInput) {
-            // First try direct focus
-            proseMirrorInput.focus();
-            
-            // If that doesn't work, simulate Tab key more accurately
-            const tabEvent = new KeyboardEvent('keydown', {
-              bubbles: true,
-              cancelable: true,
-              key: 'Tab',
-              code: 'Tab',
-              keyCode: 9,
-              which: 9,
-              shiftKey: false,
-              ctrlKey: false,
-              altKey: false,
-              metaKey: false
-            });
-            
-            // Dispatch on the currently focused element
-            const activeElement = document.activeElement || document.body;
-            activeElement.dispatchEvent(tabEvent);
-            
-            // Force focus after a small delay
-            setTimeout(() => {
+            // Check if we're in mobile view (using media query)
+            const isMobileView = window.matchMedia('(max-width: 768px)').matches;
+            console.log('Is mobile view:', isMobileView);
+
+            if (isMobileView) {
+              // In mobile view, try to find and click the input area first
+              const inputArea = document.querySelector('div[data-placeholder="How can Claude help you today?"]');
+              if (inputArea) {
+                inputArea.click();
+                setTimeout(() => {
+                  proseMirrorInput.focus();
+                  const lastParagraph = proseMirrorInput.querySelector('p:last-child');
+                  if (lastParagraph) {
+                    const selection = window.getSelection();
+                    const range = document.createRange();
+                    range.selectNodeContents(lastParagraph);
+                    range.collapse(false);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                  }
+                }, 50);
+              }
+            } else {
+              // Desktop view - direct focus usually works
               proseMirrorInput.focus();
-              // After focusing, try to place cursor at the end
               const lastParagraph = proseMirrorInput.querySelector('p:last-child');
               if (lastParagraph) {
                 const selection = window.getSelection();
                 const range = document.createRange();
                 range.selectNodeContents(lastParagraph);
-                range.collapse(false); // collapse to end
+                range.collapse(false);
                 selection.removeAllRanges();
                 selection.addRange(range);
               }
-            }, 50);
+            }
           } else {
             console.warn('No ProseMirror input found');
           }
