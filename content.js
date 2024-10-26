@@ -20,7 +20,8 @@ const DEFAULT_SHORTCUTS = {
   'copyLastResponse': { key: 'C', ctrlKey: true, altKey: false, shiftKey: true },
   'showShortcuts': { key: '/', ctrlKey: true, altKey: false, shiftKey: false },
   'clearChat': { key: 'L', ctrlKey: true, altKey: false, shiftKey: true },
-  'uploadFile': { key: 'U', ctrlKey: true, altKey: false, shiftKey: true }
+  'uploadFile': { key: 'U', ctrlKey: true, altKey: false, shiftKey: true },
+  'toggleSidebar': { key: 'S', ctrlKey: true, altKey: false, shiftKey: true }
 };
 
 let currentShortcuts = {...DEFAULT_SHORTCUTS};
@@ -95,9 +96,8 @@ document.addEventListener('keydown', (event) => {
         case 'newChat':
           // Try multiple selectors for better reliability
           const newChatButton = document.querySelector(
-            'button[aria-label="New chat"], ' + // First try aria-label
-            'a[href="/"], ' +                   // Then try href
-            '.inline-flex.items-center.justify-center.relative.shrink-0' // Finally try class combination
+            'a[href="/"], ' + // First try href
+            'button[aria-label="New chat"]' // Then try aria-label
           );
           
           if (newChatButton) {
@@ -105,6 +105,19 @@ document.addEventListener('keydown', (event) => {
             newChatButton.click();
           } else {
             console.warn('New chat button not found');
+          }
+          break;
+
+        case 'toggleSidebar':
+          const sidebarButton = document.querySelector(
+            'button.inline-flex.items-center.justify-center.relative.shrink-0[class*="rounded-md"]'
+          );
+          
+          if (sidebarButton) {
+            debugElement(sidebarButton, 'Found Sidebar Toggle');
+            sidebarButton.click();
+          } else {
+            console.warn('Sidebar toggle not found');
           }
           break;
 
