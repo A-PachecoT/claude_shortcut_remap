@@ -1,5 +1,5 @@
 // Constants for Claude's design system
-const CLAUDE_COLORS = {
+window.CLAUDE_COLORS = {
   background: '#eeece2',
   backgroundHover: '#e6e3d6',
   text: '#3d3929',
@@ -8,7 +8,7 @@ const CLAUDE_COLORS = {
   border: '#3d3929'
 };
 
-const CLAUDE_STYLES = {
+window.CLAUDE_STYLES = {
   fontPrimary: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
   fontMono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
   borderRadius: '8px',
@@ -17,7 +17,7 @@ const CLAUDE_STYLES = {
 };
 
 // Shared modal creation
-function createShortcutsModal(shortcuts, isPopup = false) {
+window.createShortcutsModal = function(shortcuts, isPopup = false) {
   const modal = document.createElement('div');
   modal.id = 'shortcuts-modal';
   
@@ -92,10 +92,10 @@ function createShortcutsModal(shortcuts, isPopup = false) {
   `;
 
   return modal;
-}
+};
 
 // Shared floating button creation
-function createFloatingButton() {
+window.createFloatingButton = function() {
   const button = document.createElement('button');
   button.id = 'shortcuts-floating-button';
   button.innerHTML = `
@@ -134,31 +134,4 @@ function createFloatingButton() {
   };
 
   return button;
-}
-
-// Make these globally available
-window.CLAUDE_COLORS = {
-  background: '#eeece2',
-  backgroundHover: '#e6e3d6',
-  text: '#3d3929',
-  accent: '#da7756',
-  accentHover: '#bd5d3a',
-  border: '#3d3929'
-};
-
-window.CLAUDE_STYLES = {
-  fontPrimary: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif',
-  fontMono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
-  borderRadius: '8px',
-  modalBorderRadius: '12px',
-  transition: 'all 0.2s ease'
-};
-
-// Make functions globally available
-window.createShortcutsModal = function(shortcuts, isPopup = false) {
-  // ... rest of the function stays the same ...
-};
-
-window.createFloatingButton = function() {
-  // ... rest of the function stays the same ...
 };
