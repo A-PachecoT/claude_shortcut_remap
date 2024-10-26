@@ -319,3 +319,10 @@ function showShortcutsModal() {
     modal.remove();
   });
 }
+
+// Add this near the top with other listeners
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "toggleShortcuts") {
+    showShortcutsModal();
+  }
+});
