@@ -309,15 +309,61 @@ function showShortcutsModal() {
   const existingModal = document.querySelector('#shortcuts-modal');
   if (existingModal) {
     existingModal.remove();
+    const overlay = document.querySelector('#shortcuts-overlay');
+    if (overlay) overlay.remove();
     return;
   }
 
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.id = 'shortcuts-overlay';
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 999;
+    animation: fadeIn 0.2s ease-out;
+  `;
+
+  // Add fade-in animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Add click handler to close on overlay click
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      overlay.remove();
+      const modal = document.querySelector('#shortcuts-modal');
+      if (modal) modal.remove();
+    }
+  });
+
+  document.body.appendChild(overlay);
   const modal = createShortcutsModal(currentShortcuts);
   document.body.appendChild(modal);
 
   document.getElementById('close-shortcuts-modal').addEventListener('click', () => {
+    overlay.remove();
     modal.remove();
   });
+
+  // Add escape key handler
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      overlay.remove();
+      modal.remove();
+    }
+  }, { once: true });
 }
 
 // Add this near the top with other listeners
