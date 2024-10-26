@@ -122,10 +122,17 @@ If you encounter any issues or have suggestions:
 - Desktop view: Working as expected
 - Current shortcut: Ctrl + Shift + S (configurable)
 
-We're working on improving the sidebar toggle functionality. Current challenges:
+### Input Focus Issues
+- Mobile view: Auto-focus not working after creating new chat
+- Desktop view: Working as expected
+- Current shortcut: Shift + Escape (configurable)
+
+Current challenges:
 - Different DOM structure between mobile and desktop views
 - Dynamic button states
 - Viewport-specific behaviors
+- Mobile-specific focus handling limitations
+- Aria-hidden conflicts with focus management
 
 If you'd like to contribute to fixing these issues, please check the issues section or submit a PR!
 
