@@ -98,27 +98,30 @@ document.addEventListener('keydown', (event) => {
           break;
 
         case 'focusInput':
-          const possibleInputs = [
-            document.querySelector('textarea'),
-            document.querySelector('[contenteditable="true"]'),
-            document.querySelector('[role="textbox"]'),
-            // Add more potential selectors
-          ];
+          const mainInput = document.querySelector('textarea:not(.g-recaptcha-response)');
+          debugElement(mainInput, 'Found Main Input');
           
-          const input = possibleInputs.find(el => el !== null);
-          if (input) {
-            debugElement(input, 'Found Input');
-            input.focus();
+          if (mainInput) {
+            mainInput.focus();
             // Place cursor at the end
-            if (input.tagName === 'TEXTAREA') {
-              input.selectionStart = input.selectionEnd = input.value.length;
-            }
+            mainInput.selectionStart = mainInput.selectionEnd = mainInput.value.length;
           } else {
-            console.warn('No input element found. Available elements:', {
-              textarea: document.querySelector('textarea'),
-              contentEditable: document.querySelector('[contenteditable="true"]'),
-              textbox: document.querySelector('[role="textbox"]')
-            });
+            console.warn('Main input not found. Trying alternative selectors...');
+            // Fallback selectors
+            const alternativeInputs = [
+              document.querySelector('[contenteditable="true"]'),
+              document.querySelector('[role="textbox"]'),
+              document.querySelector('textarea[placeholder]'),
+              // Add more specific selectors if needed
+            ];
+            
+            const input = alternativeInputs.find(el => el !== null);
+            if (input) {
+              debugElement(input, 'Found Alternative Input');
+              input.focus();
+            } else {
+              console.warn('No input element found');
+            }
           }
           break;
 
