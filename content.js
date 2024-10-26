@@ -176,27 +176,38 @@ document.addEventListener('keydown', (event) => {
             // First try direct focus
             proseMirrorInput.focus();
             
-            // If that doesn't work, simulate Tab key
+            // If that doesn't work, simulate Tab key more accurately
             const tabEvent = new KeyboardEvent('keydown', {
+              bubbles: true,
+              cancelable: true,
               key: 'Tab',
               code: 'Tab',
               keyCode: 9,
               which: 9,
-              bubbles: true,
-              cancelable: true
+              shiftKey: false,
+              ctrlKey: false,
+              altKey: false,
+              metaKey: false
             });
-            document.dispatchEvent(tabEvent);
             
-            // After focusing, try to place cursor at the end
-            const lastParagraph = proseMirrorInput.querySelector('p:last-child');
-            if (lastParagraph) {
-              const selection = window.getSelection();
-              const range = document.createRange();
-              range.selectNodeContents(lastParagraph);
-              range.collapse(false); // collapse to end
-              selection.removeAllRanges();
-              selection.addRange(range);
-            }
+            // Dispatch on the currently focused element
+            const activeElement = document.activeElement || document.body;
+            activeElement.dispatchEvent(tabEvent);
+            
+            // Force focus after a small delay
+            setTimeout(() => {
+              proseMirrorInput.focus();
+              // After focusing, try to place cursor at the end
+              const lastParagraph = proseMirrorInput.querySelector('p:last-child');
+              if (lastParagraph) {
+                const selection = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(lastParagraph);
+                range.collapse(false); // collapse to end
+                selection.removeAllRanges();
+                selection.addRange(range);
+              }
+            }, 50);
           } else {
             console.warn('No ProseMirror input found');
           }
