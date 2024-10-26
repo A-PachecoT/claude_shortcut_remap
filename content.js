@@ -94,30 +94,35 @@ document.addEventListener('keydown', (event) => {
           break;
 
         case 'newChat':
-          // Try multiple selectors for better reliability
           const newChatButton = document.querySelector(
-            'a[href="/"], ' + // First try href
-            'button[aria-label="New chat"]' // Then try aria-label
+            'button[data-state="closed"] svg[viewBox="0 0 16 16"], ' + // First try the specific new chat icon
+            'button.inline-flex[class*="bg-accent-main-100"]' // Then try the button with accent color
           );
           
           if (newChatButton) {
             debugElement(newChatButton, 'Found New Chat Button');
-            newChatButton.click();
+            newChatButton.closest('button').click(); // Make sure we click the button, not just the SVG
           } else {
             console.warn('New chat button not found');
           }
           break;
 
         case 'toggleSidebar':
-          const sidebarButton = document.querySelector(
+          const sidebarCloseButton = document.querySelector('button.md\\:hidden svg[viewBox="0 0 256 256"]');
+          const sidebarOpenButton = document.querySelector(
             'button.inline-flex.items-center.justify-center.relative.shrink-0[class*="rounded-md"]'
           );
           
-          if (sidebarButton) {
-            debugElement(sidebarButton, 'Found Sidebar Toggle');
-            sidebarButton.click();
+          if (sidebarCloseButton && sidebarCloseButton.closest('button').offsetParent !== null) {
+            // If close button is visible, click it
+            debugElement(sidebarCloseButton, 'Found Sidebar Close Button');
+            sidebarCloseButton.closest('button').click();
+          } else if (sidebarOpenButton) {
+            // If close button is not visible, try to open sidebar
+            debugElement(sidebarOpenButton, 'Found Sidebar Open Button');
+            sidebarOpenButton.click();
           } else {
-            console.warn('Sidebar toggle not found');
+            console.warn('Sidebar toggle buttons not found');
           }
           break;
 
