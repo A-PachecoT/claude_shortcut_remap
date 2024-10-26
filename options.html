@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Claude IDE Shortcuts Options</title>
+  <style>
+    :root {
+      --primary: #da7756;
+      --primary-dark: #bd5d3a;
+      --background: #eeece2;
+      --text: #3d3929;
+      --border: rgba(61, 57, 41, 0.1);
+    }
+
+    body {
+      padding: 20px;
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      color: var(--text);
+      font-weight: normal;
+      font-size: 2em;
+    }
+
+    .shortcut-row {
+      margin-bottom: 15px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: white;
+      transition: all 0.2s ease;
+    }
+
+    .shortcut-row:hover {
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px rgba(218, 119, 86, 0.1);
+    }
+
+    label {
+      display: inline-block;
+      width: 150px;
+      font-weight: 500;
+    }
+
+    .checkbox-group {
+      margin-left: 10px;
+    }
+
+    .checkbox-group label {
+      width: auto;
+      margin-right: 12px;
+    }
+
+    .key-input {
+      width: 100px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.9em;
+    }
+
+    .key-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(218, 119, 86, 0.1);
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 20px 10px 0 0;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.9em;
+      transition: all 0.2s ease;
+    }
+
+    #save {
+      background: var(--primary);
+      color: white;
+    }
+
+    #save:hover {
+      background: var(--primary-dark);
+    }
+
+    #reset {
+      background: white;
+      border: 1px solid var(--border);
+    }
+
+    #reset:hover {
+      background: var(--background);
+    }
+
+    input[type="checkbox"] {
+      accent-color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <h1>Keyboard Shortcuts</h1>
+  
+  <div id="shortcuts-container">
+    <!-- Shortcuts will be added here dynamically -->
+  </div>
+
+  <button id="save">Save Changes</button>
+  <button id="reset">Reset to Default</button>
+
+  <script src="options.js"></script>
+</body>
+</html>
