@@ -44,25 +44,48 @@ window.createShortcutsModal = function(shortcuts, isPopup = false) {
     box-shadow: 0 4px 24px rgba(61, 57, 41, 0.1);
   `;
 
-  const shortcutsList = Object.entries(shortcuts).map(([action, shortcut]) => {
-    const keys = [];
-    if (shortcut.ctrlKey) keys.push('Ctrl');
-    if (shortcut.altKey) keys.push('Alt');
-    if (shortcut.shiftKey) keys.push('Shift');
-    keys.push(shortcut.key);
-    
-    return `<div style="margin: 8px 0; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-      <span style="font-size: 14px; color: ${CLAUDE_COLORS.text};">${action}</span>
-      <span style="font-family: ${CLAUDE_STYLES.fontMono}; 
-                   font-size: 13px; 
-                   color: ${CLAUDE_COLORS.accentHover}; 
-                   padding: 4px 8px; 
-                   background: rgba(189, 93, 58, 0.1); 
-                   border-radius: 4px;">
-        ${keys.join(' + ')}
-      </span>
-    </div>`;
-  }).join('');
+  const shortcutsList = `
+    <table style="width: 100%; border-spacing: 0; border-collapse: separate;">
+      <tbody>
+        ${Object.entries(shortcuts).map(([action, shortcut]) => {
+          const keys = [];
+          if (shortcut.ctrlKey) keys.push('Ctrl');
+          if (shortcut.altKey) keys.push('Alt');
+          if (shortcut.shiftKey) keys.push('Shift');
+          keys.push(shortcut.key);
+          
+          return `
+            <tr style="
+              border-bottom: 1px solid rgba(61, 57, 41, 0.1);
+            ">
+              <td style="
+                padding: 8px 0;
+                font-size: 14px;
+                color: ${CLAUDE_COLORS.text};
+              ">
+                ${action}
+              </td>
+              <td style="
+                padding: 8px 0;
+                text-align: right;
+              ">
+                <span style="
+                  font-family: ${CLAUDE_STYLES.fontMono};
+                  font-size: 13px;
+                  color: ${CLAUDE_COLORS.accentHover};
+                  padding: 4px 8px;
+                  background: rgba(189, 93, 58, 0.1);
+                  border-radius: 4px;
+                ">
+                  ${keys.join(' + ')}
+                </span>
+              </td>
+            </tr>
+          `;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
 
   const closeButton = !isPopup ? `
     <button id="close-shortcuts-modal" style="
