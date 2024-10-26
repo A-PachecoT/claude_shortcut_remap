@@ -108,31 +108,50 @@ document.addEventListener('keydown', (event) => {
           break;
 
         case 'toggleSidebar':
+          console.log('Attempting to toggle sidebar...');
+          
           // Try to find both mobile and desktop close buttons
           const closeButtons = document.querySelectorAll('button svg[viewBox="0 0 256 256"]');
+          console.log('Found close buttons:', closeButtons.length);
+          
           const sidebarOpenButtons = [
-            // Desktop open button
+            // Desktop open button (three dots)
             document.querySelector('button.inline-flex.items-center.justify-center.relative.shrink-0[class*="rounded-md"]'),
             // Mobile open button (hamburger menu)
             document.querySelector('button svg[viewBox="0 0 32 32"]')?.closest('button')
           ].filter(Boolean); // Remove null values
           
-          // Find a visible close button
-          const visibleCloseButton = Array.from(closeButtons)
-            .find(btn => btn.closest('button').offsetParent !== null);
+          console.log('Found open buttons:', sidebarOpenButtons.length);
           
-          if (visibleCloseButton) {
-            // If any close button is visible, click it
-            debugElement(visibleCloseButton, 'Found Sidebar Close Button');
-            visibleCloseButton.closest('button').click();
+          // Check if sidebar is open by looking for visible close button
+          const isOpen = Array.from(closeButtons)
+            .some(btn => {
+              const isVisible = btn.closest('button').offsetParent !== null;
+              console.log('Close button visibility:', isVisible);
+              return isVisible;
+            });
+          
+          console.log('Sidebar is:', isOpen ? 'open' : 'closed');
+          
+          if (isOpen) {
+            // If sidebar is open, find and click the visible close button
+            const visibleCloseButton = Array.from(closeButtons)
+              .find(btn => btn.closest('button').offsetParent !== null);
+            
+            if (visibleCloseButton) {
+              debugElement(visibleCloseButton, 'Clicking Close Button');
+              visibleCloseButton.closest('button').click();
+            }
           } else {
-            // Try to find a visible open button
-            const visibleOpenButton = sidebarOpenButtons.find(btn => btn.offsetParent !== null);
+            // If sidebar is closed, find and click the visible open button
+            const visibleOpenButton = sidebarOpenButtons
+              .find(btn => btn && btn.offsetParent !== null);
+            
             if (visibleOpenButton) {
-              debugElement(visibleOpenButton, 'Found Sidebar Open Button');
+              debugElement(visibleOpenButton, 'Clicking Open Button');
               visibleOpenButton.click();
             } else {
-              console.warn('No sidebar buttons found');
+              console.warn('No visible sidebar buttons found');
             }
           }
           break;
