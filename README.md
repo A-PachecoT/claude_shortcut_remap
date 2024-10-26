@@ -127,12 +127,21 @@ If you encounter any issues or have suggestions:
 - Desktop view: Working as expected
 - Current shortcut: Shift + Escape (configurable)
 
+### Incomplete Features
+The following shortcuts are currently not working or incomplete:
+- Copy Last Code (Ctrl + Shift + ;)
+- Copy Last Response (Ctrl + Shift + C)
+- Clear Chat (Ctrl + Shift + L)
+- Upload File (Ctrl + Shift + U)
+
 Current challenges:
 - Different DOM structure between mobile and desktop views
 - Dynamic button states
 - Viewport-specific behaviors
 - Mobile-specific focus handling limitations
 - Aria-hidden conflicts with focus management
+- Response and code block tracking reliability
+- Dynamic content loading detection
 
 If you'd like to contribute to fixing these issues, please check the issues section or submit a PR!
 
