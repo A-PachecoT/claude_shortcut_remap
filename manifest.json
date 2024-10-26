@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Claude IDE Shortcuts",
+  "version": "1.0",
+  "description": "Add keyboard shortcuts to Claude IDE similar to ChatGPT",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://claude.ai/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "options_page": "options.html"
+}
