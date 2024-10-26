@@ -55,8 +55,21 @@ document.addEventListener('keydown', (event) => {
       
       switch (action) {
         case 'submit':
-          const submitButton = document.querySelector('button[type="submit"]');
-          if (submitButton) submitButton.click();
+          const submitButton = document.querySelector('button[type="submit"], button.send-button, button[aria-label*="Send"]');
+          if (submitButton && !submitButton.disabled) {
+            submitButton.click();
+            }
+          if (textarea && !textarea.disabled) {
+            const enterEvent = new KeyboardEvent('keydown', {
+              key: 'Enter',
+              code: 'Enter',
+              keyCode: 13,
+              which: 13,
+              bubbles: true,
+              cancelable: true
+            });
+            textarea.dispatchEvent(enterEvent);
+          }
           break;
           
         case 'newLine':
