@@ -51,10 +51,39 @@ const observeResponses = () => {
   observer.observe(document.body, { childList: true, subtree: true });
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+function initializeExtension() {
   observeResponses();
+  
+  // Remove existing button if it exists
+  const existingButton = document.getElementById('shortcuts-floating-button');
+  if (existingButton) {
+    existingButton.remove();
+  }
+  
+  // Create new button
   createShortcutsButton();
+}
+
+// Listen for both DOMContentLoaded and potential page changes
+document.addEventListener('DOMContentLoaded', initializeExtension);
+
+// Add a MutationObserver to handle dynamic page changes
+const pageObserver = new MutationObserver((mutations) => {
+  const shortcutsButton = document.getElementById('shortcuts-floating-button');
+  if (!shortcutsButton) {
+    initializeExtension();
+  }
 });
+
+pageObserver.observe(document.body, {
+  childList: true,
+  subtree: true
+});
+
+// Execute initialization immediately if document is already loaded
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  initializeExtension();
+}
 
 document.addEventListener('keydown', (event) => {
   const textarea = document.querySelector('textarea');
