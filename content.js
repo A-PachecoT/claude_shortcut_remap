@@ -1,3 +1,14 @@
+// Debugging function to log element details
+function debugElement(element, label = '') {
+    console.log(`${label} Element:`, {
+      tagName: element?.tagName,
+      id: element?.id,
+      className: element?.className,
+      attributes: Array.from(element?.attributes || []).map(attr => `${attr.name}="${attr.value}"`),
+      element
+    });
+  }  
+
 // Default shortcuts matching ChatGPT
 const DEFAULT_SHORTCUTS = {
   'submit': { key: 'Enter', ctrlKey: true, altKey: false, shiftKey: false },
@@ -87,7 +98,28 @@ document.addEventListener('keydown', (event) => {
           break;
 
         case 'focusInput':
-          if (textarea) textarea.focus();
+          const possibleInputs = [
+            document.querySelector('textarea'),
+            document.querySelector('[contenteditable="true"]'),
+            document.querySelector('[role="textbox"]'),
+            // Add more potential selectors
+          ];
+          
+          const input = possibleInputs.find(el => el !== null);
+          if (input) {
+            debugElement(input, 'Found Input');
+            input.focus();
+            // Place cursor at the end
+            if (input.tagName === 'TEXTAREA') {
+              input.selectionStart = input.selectionEnd = input.value.length;
+            }
+          } else {
+            console.warn('No input element found. Available elements:', {
+              textarea: document.querySelector('textarea'),
+              contentEditable: document.querySelector('[contenteditable="true"]'),
+              textbox: document.querySelector('[role="textbox"]')
+            });
+          }
           break;
 
         case 'copyLastCode':
