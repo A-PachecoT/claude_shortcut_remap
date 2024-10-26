@@ -51,6 +51,16 @@
 | Clear Chat | `Ctrl + Shift + L` |
 | Upload File | `Ctrl + Shift + U` |
 
+## 🔒 Privacy
+
+This extension respects your privacy:
+- No data collection
+- No external servers
+- Works only on claude.ai
+- Processes everything locally
+
+Read our full [Privacy Policy](https://a-pachecot.github.io/claude_ui_shortcuts/)
+
 ## 🚀 Installation
 
 1. Clone this repository or download the ZIP file
