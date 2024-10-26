@@ -4,6 +4,9 @@
   "version": "1.0",
   "description": "Add keyboard shortcuts to Claude IDE similar to ChatGPT",
   "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup.html"
+  },
   "content_scripts": [
     {
       "matches": ["https://claude.ai/*"],
