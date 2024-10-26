@@ -1,8 +1,23 @@
-# Claude IDE Shortcuts
+<div align="center">
+  <img src="icons/icon128.png" alt="Claude Shortcuts Icon" width="80" height="80">
+  <h1>Claude IDE Shortcuts</h1>
+  <p>
+    <b>Enhance your Claude AI experience with keyboard shortcuts</b>
+  </p>
+  <p>
+    <img src="https://img.shields.io/badge/Platform-Chrome-yellow.svg" alt="Platform">
+    <img src="https://img.shields.io/badge/Manifest-v3-blue.svg" alt="Manifest">
+    <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
+  </p>
+</div>
 
-A Chrome extension that adds customizable keyboard shortcuts to Claude AI's interface, matching ChatGPT's default shortcuts while allowing for personalization.
+---
 
-## Features
+<div align="center">
+  <img src="images/shortcuts-modal.png" alt="Shortcuts Modal" width="600">
+</div>
+
+## ✨ Features
 
 ### Core Features
 - 🎯 Matches ChatGPT's default keyboard shortcuts
@@ -23,28 +38,54 @@ A Chrome extension that adds customizable keyboard shortcuts to Claude AI's inte
 ## Default Shortcuts
 
 | Action | Shortcut |
-|--------|----------|
-| Submit Message | Ctrl + Enter |
-| New Line | Shift + Enter |
-| Stop Generation | Escape |
-| New Chat | Ctrl + Shift + O |
-| Focus Input | Shift + Escape |
-| Toggle Sidebar | Ctrl + Shift + S |
-| Copy Last Code | Ctrl + Shift + ; |
-| Copy Last Response | Ctrl + Shift + C |
-| Show Shortcuts | Ctrl + / |
-| Clear Chat | Ctrl + Shift + L |
-| Upload File | Ctrl + Shift + U |
+|:-------|:---------|
+| Submit Message | `Ctrl + Enter` |
+| New Line | `Shift + Enter` |
+| Stop Generation | `Escape` |
+| New Chat | `Ctrl + Shift + O` |
+| Focus Input | `Shift + Escape` |
+| Toggle Sidebar | `Ctrl + Shift + S` |
+| Copy Last Code | `Ctrl + Shift + ;` |
+| Copy Last Response | `Ctrl + Shift + C` |
+| Show Shortcuts | `Ctrl + /` |
+| Clear Chat | `Ctrl + Shift + L` |
+| Upload File | `Ctrl + Shift + U` |
 
-## Installation
+## 🚀 Installation
 
 1. Clone this repository or download the ZIP file
 2. Open Chrome and navigate to `chrome://extensions/`
 3. Enable "Developer mode" in the top right
 4. Click "Load unpacked" and select the extension directory
 
+## 🎨 Brand Colors
 
-## Files Structure
+The extension uses Claude's official brand colors:
+
+```css
+/* Primary Colors */
+--terra-cotta: #da7756;
+--terra-cotta-dark: #bd5d3a;
+--background: #eeece2;
+--text: #3d3929;
+```
+
+## 🛠️ Development
+
+### Prerequisites
+
+- Google Chrome
+- Basic knowledge of JavaScript
+- Understanding of Chrome Extension APIs
+
+### Local Development
+
+1. Make changes to the source files
+2. Go to `chrome://extensions/`
+3. Click the refresh icon on the extension card
+4. Test your changes on [Claude AI](https://claude.ai)
+
+## 📁 Files Structure
 
 ```
 claude-shortcuts/
@@ -62,41 +103,17 @@ claude-shortcuts/
     └── icon128.png
 ```
 
-## Brand Colors
-
-The extension uses Claude's official brand colors:
-
-- Primary: `#da7756` (Terra Cotta)
-- Primary Dark: `#bd5d3a`
-- Background: `#eeece2`
-- Text: `#3d3929`
-
-## Development
-
-### Prerequisites
-
-- Google Chrome
-- Basic knowledge of JavaScript
-- Understanding of Chrome Extension APIs
-
-### Local Development
-
-1. Make changes to the source files
-2. Go to `chrome://extensions/`
-3. Click the refresh icon on the extension card
-4. Test your changes on [Claude AI](https://claude.ai)
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create a new branch for your feature
 3. Submit a pull request
 
-## License
+## 📝 License
 
 MIT License - feel free to use this code in your own projects!
 
-## Acknowledgments
+## 🐛 Known Issues
 
 - Inspired by ChatGPT's keyboard shortcuts
 - Designed to match Claude AI's aesthetic
@@ -109,7 +126,7 @@ If you encounter any issues or have suggestions:
 2. Provide detailed steps to reproduce the problem
 3. Include your Chrome version and OS
 
-## Planned Features
+## Planned Features 🚀
 
 ### Future Enhancements
 - Implement toggle for Claude's sidebar pin functionality
@@ -117,7 +134,7 @@ If you encounter any issues or have suggestions:
 - Improve mobile responsiveness
 - Add customizable shortcut combinations
 
-## Known Issues
+## Known Issues 🐛
 
 ### Sidebar Toggle Limitations
 - Mobile view: Opening sidebar via shortcut not working consistently
@@ -149,4 +166,6 @@ If you'd like to contribute to fixing these issues, please check the issues sect
 
 ---
 
-Made with ❤️ for the Claude AI community
+<div align="center">
+  Made with ❤️ for the Claude AI community
+</div>
