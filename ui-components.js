@@ -1,5 +1,6 @@
 // Constants for Claude's design system
 window.CLAUDE_COLORS = {
+  // Light theme
   background: '#eeece2',
   backgroundHover: '#e6e3d6',
   text: '#3d3929',
@@ -11,7 +12,11 @@ window.CLAUDE_COLORS = {
   darkBackground: '#2e2e2b',
   darkText: '#eeece2',
   darkBorder: 'rgba(238, 236, 226, 0.1)',
-  darkAccentBg: 'rgba(218, 119, 86, 0.1)'
+  darkAccentBg: 'rgba(218, 119, 86, 0.1)',
+  
+  // Button theme
+  buttonBackground: '#272623',
+  buttonBackgroundHover: '#191916'
 };
 
 window.CLAUDE_STYLES = {
@@ -119,9 +124,9 @@ window.createFloatingButton = function() {
   button.id = 'shortcuts-floating-button';
   button.innerHTML = `
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 5H4V19H20V5Z" stroke="${CLAUDE_COLORS.text}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M20 5H4V19H20V5Z" stroke="${CLAUDE_COLORS.darkText}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M8 9H8.01M12 9H12.01M16 9H16.01M8 13H8.01M12 13H12.01M16 13H16.01M8 17H16" 
-            stroke="${CLAUDE_COLORS.text}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            stroke="${CLAUDE_COLORS.darkText}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   `;
   button.title = 'Keyboard Shortcuts';
@@ -133,8 +138,8 @@ window.createFloatingButton = function() {
     width: 36px;
     height: 36px;
     border-radius: ${CLAUDE_STYLES.borderRadius};
-    background: ${CLAUDE_COLORS.background};
-    border: 1.5px solid ${CLAUDE_COLORS.border};
+    background: ${CLAUDE_COLORS.buttonBackground};
+    border: none;
     cursor: pointer;
     z-index: 1000;
     display: flex;
@@ -145,11 +150,11 @@ window.createFloatingButton = function() {
   `;
 
   button.onmouseover = () => {
-    button.style.background = CLAUDE_COLORS.backgroundHover;
+    button.style.background = CLAUDE_COLORS.buttonBackgroundHover;
   };
   
   button.onmouseout = () => {
-    button.style.background = CLAUDE_COLORS.background;
+    button.style.background = CLAUDE_COLORS.buttonBackground;
   };
 
   return button;
