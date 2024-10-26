@@ -101,7 +101,15 @@ document.addEventListener('keydown', (event) => {
 });
 
 function showShortcutsModal() {
+  // Remove existing modal if it exists
+  const existingModal = document.querySelector('#shortcuts-modal');
+  if (existingModal) {
+    existingModal.remove();
+    return;
+  }
+
   const modal = document.createElement('div');
+  modal.id = 'shortcuts-modal';  // Add ID for easy reference
   modal.style.cssText = `
     position: fixed;
     top: 50%;
@@ -138,11 +146,16 @@ function showShortcutsModal() {
   modal.innerHTML = `
     <h2 style="margin-top: 0; margin-bottom: 20px; font-weight: normal">Keyboard Shortcuts</h2>
     ${shortcuts}
-    <button onclick="this.parentElement.remove()" 
+    <button id="close-shortcuts-modal" 
             style="margin-top: 20px; padding: 8px 16px; background: #da7756; 
                    color: white; border: none; border-radius: 6px; cursor: pointer;
                    font-family: inherit; font-size: 0.9em">Close</button>
   `;
 
   document.body.appendChild(modal);
+
+  // Add event listener to close button
+  document.getElementById('close-shortcuts-modal').addEventListener('click', () => {
+    modal.remove();
+  });
 }
