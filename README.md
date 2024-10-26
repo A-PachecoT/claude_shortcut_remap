@@ -99,6 +99,16 @@ If you encounter any issues or have suggestions:
 2. Provide detailed steps to reproduce the problem
 3. Include your Chrome version and OS
 
+## Planned Features
+
+### Sidebar Toggle Enhancement
+- Implement toggle for Claude's sidebar pin functionality
+- Match the native "pin sidebar" button behavior
+- Maintain state across page refreshes
+- Planned shortcut: Ctrl + Shift + S (configurable)
+
+If you'd like to contribute to implementing these features, please check the issues section or submit a PR!
+
 ---
 
 Made with ❤️ for the Claude AI community
