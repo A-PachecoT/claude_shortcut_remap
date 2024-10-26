@@ -53,7 +53,8 @@ window.createShortcutsModal = function(shortcuts, isPopup = false) {
     border-radius: ${CLAUDE_STYLES.modalBorderRadius};
     font-family: ${CLAUDE_STYLES.fontPrimary};
     color: ${CLAUDE_COLORS.darkText};
-    width: 400px;
+    width: 600px;
+    max-width: 90vw;
   `;
 
   modal.style.cssText = isPopup ? baseStyles : `
@@ -63,24 +64,38 @@ window.createShortcutsModal = function(shortcuts, isPopup = false) {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
-    max-height: 80vh;
-    overflow-y: auto;
     box-shadow: 0 4px 24px rgba(61, 57, 41, 0.1);
   `;
 
   const shortcutsList = `
-    <div style="
+    <div class="shortcuts-grid" style="
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 12px 24px;
       margin-top: 16px;
-      max-height: calc(100vh - 200px);
-      overflow-y: auto;
-      @media (max-width: 640px) {
-        grid-template-columns: 1fr;
-        max-height: 70vh;
-      }
+      padding-right: 4px;
     ">
+      <style>
+        .shortcuts-grid {
+          overflow-y: auto;
+          max-height: 70vh;
+        }
+        @media (max-width: 640px) {
+          .shortcuts-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        .shortcuts-grid::-webkit-scrollbar {
+          width: 8px;
+        }
+        .shortcuts-grid::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .shortcuts-grid::-webkit-scrollbar-thumb {
+          background-color: rgba(238, 236, 226, 0.1);
+          border-radius: 4px;
+        }
+      </style>
       ${Object.entries(shortcuts).map(([action, shortcut]) => {
         const keys = [];
         if (shortcut.ctrlKey) keys.push('Ctrl');
