@@ -5,7 +5,13 @@ window.CLAUDE_COLORS = {
   text: '#3d3929',
   accent: '#da7756',
   accentHover: '#bd5d3a',
-  border: '#3d3929'
+  border: '#3d3929',
+  
+  // Dark theme
+  darkBackground: '#2e2e2b',
+  darkText: '#eeece2',
+  darkBorder: 'rgba(238, 236, 226, 0.1)',
+  darkAccentBg: 'rgba(218, 119, 86, 0.1)'
 };
 
 window.CLAUDE_STYLES = {
@@ -22,14 +28,12 @@ window.createShortcutsModal = function(shortcuts, isPopup = false) {
   modal.id = 'shortcuts-modal';
   
   const baseStyles = `
-    background: ${CLAUDE_COLORS.background};
+    background: ${CLAUDE_COLORS.darkBackground};
     padding: 24px;
     border-radius: ${CLAUDE_STYLES.modalBorderRadius};
-    border: 1.5px solid ${CLAUDE_COLORS.border};
     font-family: ${CLAUDE_STYLES.fontPrimary};
-    color: ${CLAUDE_COLORS.text};
-    min-width: 320px;
-    max-width: 480px;
+    color: ${CLAUDE_COLORS.darkText};
+    width: 400px;
   `;
 
   modal.style.cssText = isPopup ? baseStyles : `
@@ -44,25 +48,40 @@ window.createShortcutsModal = function(shortcuts, isPopup = false) {
     box-shadow: 0 4px 24px rgba(61, 57, 41, 0.1);
   `;
 
-  const shortcutsList = Object.entries(shortcuts).map(([action, shortcut]) => {
-    const keys = [];
-    if (shortcut.ctrlKey) keys.push('Ctrl');
-    if (shortcut.altKey) keys.push('Alt');
-    if (shortcut.shiftKey) keys.push('Shift');
-    keys.push(shortcut.key);
-    
-    return `<div style="margin: 8px 0; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-      <span style="font-size: 14px; color: ${CLAUDE_COLORS.text};">${action}</span>
-      <span style="font-family: ${CLAUDE_STYLES.fontMono}; 
-                   font-size: 13px; 
-                   color: ${CLAUDE_COLORS.accentHover}; 
-                   padding: 4px 8px; 
-                   background: rgba(189, 93, 58, 0.1); 
-                   border-radius: 4px;">
-        ${keys.join(' + ')}
-      </span>
-    </div>`;
-  }).join('');
+  const shortcutsList = `
+    <div style="
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      margin-top: 16px;
+    ">
+      ${Object.entries(shortcuts).map(([action, shortcut]) => {
+        const keys = [];
+        if (shortcut.ctrlKey) keys.push('Ctrl');
+        if (shortcut.altKey) keys.push('Alt');
+        if (shortcut.shiftKey) keys.push('Shift');
+        keys.push(shortcut.key);
+        
+        return `
+          <div style="
+            font-size: 14px;
+            color: ${CLAUDE_COLORS.darkText};
+          ">${action}</div>
+          <div style="
+            font-family: ${CLAUDE_STYLES.fontMono};
+            font-size: 13px;
+            color: ${CLAUDE_COLORS.accent};
+            padding: 4px 8px;
+            background: ${CLAUDE_COLORS.darkAccentBg};
+            border-radius: 4px;
+            text-align: right;
+          ">
+            ${keys.join(' + ')}
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
 
   const closeButton = !isPopup ? `
     <button id="close-shortcuts-modal" style="
@@ -70,7 +89,7 @@ window.createShortcutsModal = function(shortcuts, isPopup = false) {
       border: none;
       padding: 4px;
       cursor: pointer;
-      color: ${CLAUDE_COLORS.text};
+      color: ${CLAUDE_COLORS.darkText};
       display: flex;
       align-items: center;
       justify-content: center;
@@ -83,7 +102,7 @@ window.createShortcutsModal = function(shortcuts, isPopup = false) {
 
   modal.innerHTML = `
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-      <h2 style="margin: 0; font-size: 18px; font-weight: 500; color: ${CLAUDE_COLORS.text};">
+      <h2 style="margin: 0; font-size: 18px; font-weight: 500; color: ${CLAUDE_COLORS.darkText};">
         Keyboard Shortcuts
       </h2>
       ${closeButton}
