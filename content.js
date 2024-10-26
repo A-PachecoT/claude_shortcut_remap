@@ -95,13 +95,39 @@ document.addEventListener('keydown', (event) => {
 
         case 'newChat':
           const newChatButton = document.querySelector(
-            'button[data-state="closed"] svg[viewBox="0 0 16 16"], ' + // First try the specific new chat icon
-            'button.inline-flex[class*="bg-accent-main-100"]' // Then try the button with accent color
+            'button[data-state="closed"] svg[viewBox="0 0 16 16"], ' +
+            'button.inline-flex[class*="bg-accent-main-100"]'
           );
           
           if (newChatButton) {
             debugElement(newChatButton, 'Found New Chat Button');
-            newChatButton.closest('button').click(); // Make sure we click the button, not just the SVG
+            const button = newChatButton.closest('button');
+            button.click();
+            
+            // Wait for DOM update and then focus the input
+            setTimeout(() => {
+              const proseMirrorInput = document.querySelector('div.ProseMirror[contenteditable="true"]');
+              if (proseMirrorInput) {
+                // Remove any aria-hidden from ancestors
+                let element = proseMirrorInput;
+                while (element && element !== document.body) {
+                  element.removeAttribute('aria-hidden');
+                  element.removeAttribute('data-aria-hidden');
+                  element = element.parentElement;
+                }
+                
+                proseMirrorInput.focus();
+                const lastParagraph = proseMirrorInput.querySelector('p:last-child');
+                if (lastParagraph) {
+                  const selection = window.getSelection();
+                  const range = document.createRange();
+                  range.selectNodeContents(lastParagraph);
+                  range.collapse(false);
+                  selection.removeAllRanges();
+                  selection.addRange(range);
+                }
+              }
+            }, 100); // Increased timeout to ensure DOM updates
           } else {
             console.warn('New chat button not found');
           }
