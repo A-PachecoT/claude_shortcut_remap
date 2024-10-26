@@ -117,8 +117,8 @@ document.addEventListener('keydown', (event) => {
           const sidebarOpenButtons = [
             // Desktop open button (three dots)
             document.querySelector('button.inline-flex.items-center.justify-center.relative.shrink-0[class*="rounded-md"]'),
-            // Mobile open button (hamburger menu)
-            document.querySelector('button svg[viewBox="0 0 32 32"]')?.closest('button')
+            // Mobile open button (hamburger menu) - more specific selector
+            document.querySelector('.pointer-events-auto.absolute.left-2.top-3.z-20.md\\:hidden button')
           ].filter(Boolean); // Remove null values
           
           console.log('Found open buttons:', sidebarOpenButtons.length);
@@ -126,7 +126,10 @@ document.addEventListener('keydown', (event) => {
           // Check if sidebar is open by looking for visible close button
           const isOpen = Array.from(closeButtons)
             .some(btn => {
-              const isVisible = btn.closest('button').offsetParent !== null;
+              const button = btn.closest('button');
+              const isVisible = button && 
+                               window.getComputedStyle(button).display !== 'none' && 
+                               button.offsetParent !== null;
               console.log('Close button visibility:', isVisible);
               return isVisible;
             });
@@ -136,7 +139,12 @@ document.addEventListener('keydown', (event) => {
           if (isOpen) {
             // If sidebar is open, find and click the visible close button
             const visibleCloseButton = Array.from(closeButtons)
-              .find(btn => btn.closest('button').offsetParent !== null);
+              .find(btn => {
+                const button = btn.closest('button');
+                return button && 
+                       window.getComputedStyle(button).display !== 'none' && 
+                       button.offsetParent !== null;
+              });
             
             if (visibleCloseButton) {
               debugElement(visibleCloseButton, 'Clicking Close Button');
@@ -145,7 +153,11 @@ document.addEventListener('keydown', (event) => {
           } else {
             // If sidebar is closed, find and click the visible open button
             const visibleOpenButton = sidebarOpenButtons
-              .find(btn => btn && btn.offsetParent !== null);
+              .find(btn => {
+                return btn && 
+                       window.getComputedStyle(btn).display !== 'none' && 
+                       btn.offsetParent !== null;
+              });
             
             if (visibleOpenButton) {
               debugElement(visibleOpenButton, 'Clicking Open Button');
